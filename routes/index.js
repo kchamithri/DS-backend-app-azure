@@ -1,73 +1,73 @@
-var express = require('express');
-var Task = require('../models/task');
+var express = require("express");
+var Job = require("../models/job");
 
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  Task.find()
-    .then((tasks) => {      
-      const currentTasks = tasks.filter(task => !task.completed);
-      const completedTasks = tasks.filter(task => task.completed === true);
-
-      console.log(`Total tasks: ${tasks.length}   Current tasks: ${currentTasks.length}    Completed tasks:  ${completedTasks.length}`)
-      res.render('index', { currentTasks: currentTasks, completedTasks: completedTasks });
+router.get("/", function (req, res, next) {
+  Job.find()
+    .then((jobs) => {
+      console.log(`Total jobs: ${jobs}`);
+      res.render("index", { jobs: jobs });
     })
     .catch((err) => {
       console.log(err);
-      res.send('Sorry! Something went wrong.');
+      res.send("Sorry! Something went wrong.");
     });
 });
 
-
-router.post('/addTask', function(req, res, next) {
-  const taskName = req.body.taskName;
-  const createDate = Date.now();
-  
-  var task = new Task({
-    taskName: taskName,
-    createDate: createDate
+router.post("/addJob", function (req, res, next) {
+  const newJob = new Job({
+    companyName: "Wiley",
+    companyUrl: "Wiley.com",
+    link: "https://wiley.com/careers",
+    location: "Remote",
+    postedOn: new Date("2024-01-20"),
+    skills: ["Spring Boot", "Java", "Node.js", "Angular", "React"],
+    title: "Fullstack Developer",
+    type: "Full Time",
   });
-  console.log(`Adding a new task ${taskName} - createDate ${createDate}`)
 
-  task.save()
-      .then(() => { 
-        console.log(`Added new task ${taskName} - createDate ${createDate}`)        
-        res.redirect('/'); })
-      .catch((err) => {
-          console.log(err);
-          res.send('Sorry! Something went wrong.');
-      });
-});
-
-router.post('/completeTask', function(req, res, next) {
-  console.log("I am in the PUT method")
-  const taskId = req.body._id;
-  const completedDate = Date.now();
-
-  Task.findByIdAndUpdate(taskId, { completed: true, completedDate: Date.now()})
-    .then(() => { 
-      console.log(`Completed task ${taskId}`)
-      res.redirect('/'); }  )
+  newJob
+    .save()
+    .then(() => {
+      console.log("Job added successfully");
+      res.redirect("/"); // Redirect to the home page or wherever you want
+    })
     .catch((err) => {
       console.log(err);
-      res.send('Sorry! Something went wrong.');
+      res.send("Sorry! Something went wrong.");
     });
 });
 
+// router.post("/completeTask", function (req, res, next) {
+//   console.log("I am in the PUT method");
+//   const taskId = req.body._id;
+//   const completedDate = Date.now();
 
-router.post('/deleteTask', function(req, res, next) {
-  const taskId = req.body._id;
-  const completedDate = Date.now();
-  Task.findByIdAndDelete(taskId)
-    .then(() => { 
-      console.log(`Deleted task $(taskId)`)      
-      res.redirect('/'); }  )
-    .catch((err) => {
-      console.log(err);
-      res.send('Sorry! Something went wrong.');
-    });
-});
+//   Task.findByIdAndUpdate(taskId, { completed: true, completedDate: Date.now() })
+//     .then(() => {
+//       console.log(`Completed task ${taskId}`);
+//       res.redirect("/");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.send("Sorry! Something went wrong.");
+//     });
+// });
 
+// router.post("/deleteTask", function (req, res, next) {
+//   const taskId = req.body._id;
+//   const completedDate = Date.now();
+//   Task.findByIdAndDelete(taskId)
+//     .then(() => {
+//       console.log(`Deleted task $(taskId)`);
+//       res.redirect("/");
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.send("Sorry! Something went wrong.");
+//     });
+// });
 
 module.exports = router;
