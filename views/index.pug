@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-  form(action='./addTask' method='POST' class='form-registration')
+  form(action='./addJob' method='POST' class='form-registration')
     div(class='row my-3')
         div(class='col-md-2 align-bottom')
           label(for="taskName" class='fs-5') New task
@@ -22,23 +22,23 @@ block content
   each job in jobs
     div(class='row mb-2')
       div(class='col-sm-6') #{job.companyName}
-  //-     div(class='col-sm-2') #{format(task.createDate, "yyyy-MM-dd")}
-  //-     div(class='col-sm-2')
-  //-       form(action='./completeTask' method='POST' class='form-registration')
-  //-         input(type='hidden' name='_id' value=`${task._id}`)
-  //-         button(class='btn btn-primary btn-sm mx-1' type='submit') Complete
-  //-     div(class='col-sm-2')
-  //-       form(action='./deleteTask' method='POST' class='form-registration')
-  //-         input(type='hidden' name='_id' value=`${task._id}`)
-  //-         button(class='btn btn-danger btn-sm mx-1') Delete
+      div(class='col-sm-2') #{format(job.createDate, "yyyy-MM-dd")}
+      div(class='col-sm-2')
+        form(action='./completeTask' method='POST' class='form-registration')
+          input(type='hidden' name='_id' value=`${job._id}`)
+          button(class='btn btn-primary btn-sm mx-1' type='submit') Complete
+      div(class='col-sm-2')
+        form(action='./deleteTask' method='POST' class='form-registration')
+          input(type='hidden' name='_id' value=`${job._id}`)
+          button(class='btn btn-danger btn-sm mx-1') Delete
 
-  //- h5(class='my-2') Completed tasks
-  //- div(class='row mb-3 border-bottom border-3')
-  //-   div(class='col-sm-8 fw-bold') Task
-  //-   div(class='col-sm-2 fw-bold') Created
-  //-   div(class='col-sm-2 fw-bold') Completed
-  //- each task in completedTasks
-  //-   div(class='row mb-3')
-  //-     div(class='col-sm-8') #{task.taskName}
-  //-     div(class='col-sm-2') #{format(task.createDate, "yyyy-MM-dd")}
-  //-     div(class='col-sm-2') #{format(task.completedDate, "yyyy-MM-dd")}
+  h5(class='my-2') Completed tasks
+  div(class='row mb-3 border-bottom border-3')
+    div(class='col-sm-8 fw-bold') Task
+    div(class='col-sm-2 fw-bold') Created
+    div(class='col-sm-2 fw-bold') Completed
+  each job in jobs
+    div(class='row mb-3')
+      div(class='col-sm-8') #{job.taskName}
+      div(class='col-sm-2') #{format(job.createDate, "yyyy-MM-dd")}
+      div(class='col-sm-2') #{format(job.completedDate, "yyyy-MM-dd")}
