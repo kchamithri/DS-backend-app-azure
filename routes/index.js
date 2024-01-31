@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
   Job.find()
     .then((jobs) => {
       console.log(`Total jobs: ${jobs}`);
-      res.render("index", { jobs: jobs });
+      res.json({ jobs: jobs });
     })
     .catch((err) => {
       console.log(err);
