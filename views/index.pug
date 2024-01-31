@@ -22,7 +22,7 @@ block content
   each job in jobs
     div(class='row mb-2')
       div(class='col-sm-6') #{job.companyName}
-      div(class='col-sm-2') #{format(job.createDate, "yyyy-MM-dd")}
+      div(class='col-sm-2') #{format(job.postedOn, "yyyy-MM-dd")}
       div(class='col-sm-2')
         form(action='./completeTask' method='POST' class='form-registration')
           input(type='hidden' name='_id' value=`${job._id}`)
@@ -40,5 +40,5 @@ block content
   each job in jobs
     div(class='row mb-3')
       div(class='col-sm-8') #{job.taskName}
-      div(class='col-sm-2') #{format(job.createDate, "yyyy-MM-dd")}
-      div(class='col-sm-2') #{format(job.completedDate, "yyyy-MM-dd")}
+      div(class='col-sm-2') #{format(job.postedOn, "yyyy-MM-dd")}
+   

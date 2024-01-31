@@ -22,7 +22,7 @@ router.post("/addJob", function (req, res, next) {
     companyUrl: "Wiley.com",
     link: "https://wiley.com/careers",
     location: "Remote",
-    postedOn: new Date("2024-01-20"),
+    postedOn: "2024-01-20",
     skills: ["Spring Boot", "Java", "Node.js", "Angular", "React"],
     title: "Fullstack Developer",
     type: "Full Time",
