@@ -17,15 +17,28 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/addJob", function (req, res, next) {
+  // Extract values from the request body
+  const {
+    companyName,
+    companyUrl,
+    link,
+    location,
+    postedOn,
+    skills,
+    title,
+    type,
+  } = req.body;
+
+  // Create a new Job instance with the extracted values
   const newJob = new Job({
-    companyName: "Wiley",
-    companyUrl: "Wiley.com",
-    link: "https://wiley.com/careers",
-    location: "Remote",
-    postedOn: "2024-01-20",
-    skills: ["Spring Boot", "Java", "Node.js", "Angular", "React"],
-    title: "Fullstack Developer",
-    type: "Full Time",
+    companyName,
+    companyUrl,
+    link,
+    location,
+    postedOn,
+    skills,
+    title,
+    type,
   });
 
   newJob
